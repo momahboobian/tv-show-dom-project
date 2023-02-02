@@ -4,21 +4,72 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TV Show Project | (Mo Mahboobian(momoahboobian))</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
-    </div>
-    <div id="episodes-container">
-    </div>
-    <a href="https://www.tvmaze.com">Data from TVMaze.com</a>
+    <header class="navbar" id="top-nav">
+      <ul class="nav">
+        <li><a href="#">TV</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">Calendar</a></li>
+        <li><a href="#">Discover</a></li>
+        <li><a href="#">Apps</a></li>
+        <li><a href="#">VIP</a></li>
+      </ul>
+    </header>
+    <section id="watching-wrapper" >
+      <div class="bg-header"></div>
+      <div class="shade"></div>
+      <div class="info-wrapper">
+        <div class="info-container">
+          <div class="info-row">
+            <h1 class="title-logo">MoReel Planet</h1>
+            <h2>Discover Movies and TV Shows</h2>
+            <p>Connect MoReel Planet to your streaming platform and track your watch list</p>
+            <button>Join MoReel Planet For Free</button>
+          </div>
+        </div>
+      </div>
+      <div class="works-with">
+        <div class="icons-header">
+          MoReel Planet Works With
+        </div>
+        <div class="media-center">
+          <a target="_black" href="#"> <img class="" src="/assets/img/companies/logo-kodi.png"> </a> 
+        </div>
+      </div>
+    </section>
+    <section id="search-wrapper">
+      <div class="bg-search">
+        <form id="live-search" class="styled" method="post">
+          <fieldset>
+            <label for="search">Search</label>
+            <input id="search-input" placeholder="search"/>
+            <span id="search-count"></span>
+          </fieldset>
+        </form>
 
+        </div>
+    </section>
+    <section class="episode-wrapper">
+      <div id="episodes-container">
+        
+      </div>
+    </section>
+    <footer>
+      <a href="https://www.tvmaze.com">Data from TVMaze.com</a>
+    </footer>
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
 
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
+    <script src="index.js"></script>
+
+
   </body>
 </html>

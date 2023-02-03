@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TV Show Project | (Mo Mahboobian(momoahboobian))</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
 
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -21,7 +24,7 @@
         <li><a href="#">VIP</a></li>
       </ul>
     </header>
-    <section id="watching-wrapper" >
+    <section id="watching-wrapper">
       <div class="bg-header"></div>
       <div class="shade"></div>
       <div class="info-wrapper">
@@ -29,36 +32,38 @@
           <div class="info-row">
             <h1 class="title-logo">MoReel Planet</h1>
             <h2>Discover Movies and TV Shows</h2>
-            <p>Connect MoReel Planet to your streaming platform and track your watch list</p>
+            <p>
+              Connect MoReel Planet to your streaming platform and track your
+              watch list
+            </p>
             <button>Join MoReel Planet For Free</button>
           </div>
         </div>
       </div>
       <div class="works-with">
-        <div class="icons-header">
-          MoReel Planet Works With
-        </div>
+        <div class="icons-header">MoReel Planet Works With</div>
         <div class="media-center">
-          <a target="_black" href="#"> <img class="" src="/assets/img/companies/logo-kodi.png"> </a> 
+          <a target="_black" href="#">
+            <img class="" src="/assets/img/companies/logo-kodi.png" />
+          </a>
         </div>
       </div>
     </section>
     <section id="search-wrapper">
       <div class="bg-search">
-        <form id="live-search" class="styled" method="post">
+        <form id="live-search" method="post">
           <fieldset>
-            <label for="search">Search</label>
-            <input id="search-input" placeholder="search"/>
-            <span id="search-count"></span>
+            <select id="episode-selector">
+            </select>
+
+            <input id="search-input" placeholder="search your episode" />
+            <span id="search-count"></div>
           </fieldset>
         </form>
-
-        </div>
+      </div>
     </section>
     <section class="episode-wrapper">
-      <div id="episodes-container">
-        
-      </div>
+      <div id="episodes-container"></div>
     </section>
     <footer>
       <a href="https://www.tvmaze.com">Data from TVMaze.com</a>
@@ -69,7 +74,5 @@
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
     <script src="index.js"></script>
-
-
   </body>
 </html>

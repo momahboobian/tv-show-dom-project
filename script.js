@@ -1,23 +1,22 @@
 //You can edit ALL of the code here
+let allEpisodes;
 function setup() {
-  const allEpisodes = getAllEpisodes();
+  allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
 }
-
-// function makePageForEpisodes(episodeList) {
-//   const rootElem = document.getElementById("root");
-//   rootElem.textContent = `Got ${episodeList.length} episode(s)`;
-// }
-
-window.onload = setup;
+const episodesCounter = document.getElementById("search-count");
 
 function makePageForEpisodes(episodeList) {
-const episodesContainer = document.getElementById("episodes-container");
-episodesContainer.innerHTML = "";
+  episodesCounter.innerHTML = `${episodeList.length}  episodes match the current search`;
 
-episodeList.forEach((episode) => {
-  const episodeCode = `S${("0" + episode.season).slice(-2)}E${("0" + episode.number).slice(-2)}`;
-  const episodeElement = `
+  const episodesContainer = document.getElementById("episodes-container");
+  episodesContainer.innerHTML = "";
+
+  episodeList.forEach((episode) => {
+    const episodeCode = `S${("0" + episode.season).slice(-2)}E${(
+      "0" + episode.number
+    ).slice(-2)}`;
+    const episodeElement = `
     <div class="episode">
       <img class="ep-art" src="${episode.image.medium}" alt="${episode.name}">
       <div class="episode-container">
@@ -38,34 +37,63 @@ episodeList.forEach((episode) => {
         </div>
       </div>
     </div>
-
   `;
-  episodesContainer.innerHTML += episodeElement;
-});
+    episodesContainer.innerHTML += episodeElement;
+  });
+}
 
+// Level 200
 const searchInput = document.getElementById("search-input");
-const searchCount = document.getElementById("search-count")
-searchCount.innerHTML = `${episodeList.length}  episodes match the current search`
+const searchCount = document.getElementById("search-count");
 searchInput.addEventListener("input", (e) => {
   const searchTerm = e.target.value.toLowerCase();
-  let searchResults = episodeList.filter((episode) => {
+  let searchResults = allEpisodes.filter((episode) => {
     return (
-      episode.name.toLowerCase().includes(searchTerm) || episode.summary.toLowerCase().includes(searchTerm)
+      episode.name.toLowerCase().includes(searchTerm) ||
+      episode.summary.toLowerCase().includes(searchTerm)
     );
   });
-    makePageForEpisodes(searchResults);
-    console.log(searchResults)
-    // const episodeOrEpisodes = searchResults.length !== 1 ? "episodes" : "episode";
-    searchCount.innerHTML = `${searchResults.length}  episodes match the current search`;
-})
-};
+  makePageForEpisodes(searchResults);
 
+  const episodeOrEpisodes = searchResults.length !== 1 ? "episodes" : "episode";
+  searchCount.innerHTML = `${searchResults.length} ${episodeOrEpisodes} match the current search`;
+});
 
+// Level 300
+function createOption(episode) {
+  const episodeCode = `S${("0" + episode.season).slice(-2)}E${(
+    "0" + episode.number
+  ).slice(-2)}`;
+  const option = document.createElement("option");
+  option.value = episode.id;
+  // option.value = "all";
+  // option.innerHTML = "All episodes";
 
+  option.text = `${episodeCode} - ${episode.name}`;
 
+  return option;
+}
 
+const selectInput = document.getElementById("episode-selector");
 
+selectInput.addEventListener("change", (e) => {
+  const selectedEpisodeId = e.target.value;
+  const selectedEpisode = episodeList.find(
+    (episode) => episode.id === selectedEpisodeId
+  );
+  // displaySelectedEpisode(selectedEpisode);
+  console.log(selectedEpisode);
+});
 
+const episodeList = getAllEpisodes();
+episodeList.forEach((episode) => {
+  selectInput.add(createOption(episode));
+});
+
+// makePageForEpisodes(episodeList);
+
+/////////////////
+window.onload = setup;
 
 /*
 let allEpisodes;

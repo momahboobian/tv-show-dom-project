@@ -1,5 +1,5 @@
 ## [TV Show Live Demo](https://cyf-momahboobian-tv.netlify.app/)
-![TV Show ](./assets/img/TV-Show-Screenshot.png)
+![TV Show](./assets/img/TV-Show-Screenshot.png)
 
 # TV Show DOM Project
 

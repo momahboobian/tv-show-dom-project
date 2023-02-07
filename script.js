@@ -1,29 +1,36 @@
 //You can edit ALL of the code here
 let allEpisodes;
-function setup() {
-  allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
-}
+// function setup() {
+//   allEpisodes = getAllEpisodes();
+//   makePageForEpisodes(allEpisodes);
+//   allEpisodes.forEach((episode) => {
+//     selectInput.add(createOption(episode));
+//   });
+// }
 
-/*
-let allEpisodes;
-function setup() {
-  fetch("http://api.tvmaze.com/shows/82/episodes")
-    .then((response) => response.json())
-    .then((data) => {
-      allEpisodes = data;
-      makePageForEpisodes(allEpisodes);
+async function setup() {
+  try {
+    const response = await fetch("http://api.tvmaze.com/shows/82/episodes");
+    allEpisodes = await response.json();
+    makePageForEpisodes(allEpisodes);
+    allEpisodes.forEach((episode) => {
+      selectInput.add(createOption(episode));
     });
+  } catch (error) {}
 }
-*/
 
 // Level 100
 const episodesCounter = document.getElementById("search-count");
 const episodesContainer = document.getElementById("episodes-container");
 
 function makePageForEpisodes(episodeList) {
-  episodesCounter.innerHTML = `${episodeList.length}  episodes out of ${allEpisodes.length}`;
-  console.log(allEpisodes.length);
+  //Episode or Episodes
+  const episodeOrEpisodes =
+    episodeList.length !== 0 && episodeList.length !== 1
+      ? "episodes"
+      : "episode";
+  episodesCounter.innerHTML = `${episodeList.length} ${episodeOrEpisodes} out of ${allEpisodes.length}`;
+
   episodesContainer.innerHTML = "";
 
   episodeList.forEach((episode) => {
@@ -32,7 +39,6 @@ function makePageForEpisodes(episodeList) {
 }
 
 // Render Episodes
-
 function renderEpisodeContainer(episode) {
   const episodeCode = `S${("0" + episode.season).slice(-2)}E${(
     "0" + episode.number
@@ -64,7 +70,6 @@ function renderEpisodeContainer(episode) {
 
 // Level 200
 const searchInput = document.getElementById("search-input");
-const searchCount = document.getElementById("search-count");
 searchInput.addEventListener("input", (e) => {
   const searchTerm = e.target.value.toLowerCase();
   let searchResults = allEpisodes.filter((episode) => {
@@ -74,13 +79,6 @@ searchInput.addEventListener("input", (e) => {
     );
   });
   makePageForEpisodes(searchResults);
-
-  //Episode or Episodes
-  const episodeOrEpisodes =
-    searchResults.length !== 0 && searchResults.length !== 1
-      ? "episodes"
-      : "episode";
-  searchCount.innerHTML = `${searchResults.length} ${episodeOrEpisodes} out of ${allEpisodes.length}`;
 });
 
 // Level 300
@@ -97,52 +95,23 @@ function createOption(episode) {
     "0" + episode.number
   ).slice(-2)}`;
 
-  option.innerHTML = episode.id;
+  option.value = episode.id;
   option.text = `${episodeCode} - ${episode.name}`;
-
   return option;
 }
-const episodeList = getAllEpisodes();
-episodeList.forEach((episode) => {
-  selectInput.add(createOption(episode));
-});
 
-/////////
+// Display selected episode by select option
 selectInput.addEventListener("change", function () {
   const selectedOption = this.value;
-  const episodeDetails = document.getElementById("episode-details");
 
   if (selectedOption === "all") {
-    episodeList.forEach((episode) => {
-      renderEpisodeContainer(episode);
-    });
+    makePageForEpisodes(allEpisodes);
   } else {
-    // episodeDetails.innerHTML = "";
-    const selectedEpisode = episodeList.find(
-      (episode) => episode.id === selectedOption
-    );
-    episodeDetails.appendChild(createOption(selectedEpisode));
+    let selectResults = allEpisodes.filter((episode) => {
+      return `${episode.id}` === selectedOption;
+    });
+    makePageForEpisodes(selectResults);
   }
 });
 
-// Display only the selected episode
-// selectInput.addEventListener("change", (e) => {
-//   const selectedEpisodeId = e.target.value;
-
-//   if (selectedEpisodeId === "All") {
-//     makePageForEpisodes(episodeList);
-//     return;
-//   }
-
-//   const selectedEpisode = episodeList.find(
-//     (episode) => episode.id === parseInt(selectedEpisodeId)
-//   );
-//   if (selectedEpisode) {
-//     makePageForEpisodes([selectedEpisode]);
-//   } else {
-//     console.error(`No episode found with id: ${selectedEpisodeId}`);
-//   }
-// });
-
-/////////////////
 window.onload = setup;

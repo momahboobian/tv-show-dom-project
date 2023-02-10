@@ -22,44 +22,38 @@
         <li>
           <a href="/index.html"><img src="/assets/img/MoReel_Logo_0.png" /></a>
         </li>
+
         <li><a href="#">Discover</a></li>
         <li><a href="#">Apps</a></li>
         <li><a href="#">VIP</a></li>
       </ul>
     </header>
-    <section id="watching-wrapper">
-      <div class="bg-header"></div>
-      <div class="shade"></div>
-      <div class="info-wrapper">
-        <div class="info-container">
-          <div class="info-row">
-            <h1 class="title-logo">MoReel Planet</h1>
-            <h2>Discover Movies and TV Shows</h2>
-            <p>
-              Connect MoReel Planet to your streaming platform and track your
-              watch list
-            </p>
-            <button>Join MoReel Planet For Free</button>
-          </div>
+    <div class="frame-wrapper">
+      <section id="search-wrapper">
+        <div class="bg-search">
+          <div id="side-header"></div>
+          <input id="search-input" placeholder="search your episode" />
+          <select id="episode-selector"></select>
         </div>
-      </div>
-      <div class="works-with">
-        <div class="icons-header">MoReel Planet Works With</div>
-        <div class="media-center">
-          <a target="_black" href="#">
-            <img class="" src="/assets/img/companies/logo-kodi.png" />
-          </a>
-        </div>
-      </div>
-    </section>
-    <section id="search-wrapper"></section>
-    <section class="episode-wrapper">
-      <div id="episodes-container"></div>
-    </section>
+        <ul class="filter-table">
+          <li id="popular">Popular</li>
+          <li id="trending">Trending</li>
+          <li id="runtime">Runtime</li>
+          <li id="tvrage">Tvrage</li>
+        </ul>
+      </section>
+      <section class="episode-wrapper">
+        <div id="episodes-container"></div>
+      </section>
+    </div>
+    <footer>
+      <a href="https://www.tvmaze.com">Data from TVMaze.com</a>
+    </footer>
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+    <script src="shows.js"></script>
+    <script src="episodes.js"></script>
 
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
-    <script src="index.js"></script>
   </body>
 </html>

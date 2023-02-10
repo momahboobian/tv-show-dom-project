@@ -54,6 +54,29 @@ header,
   text-decoration: none;
   font-size: 15px;
 }
+
+/* .navbar a::before,
+.filter-table li::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--white);
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar a:hover::before,
+.filter-table li:hover::before {
+  cursor: pointer;
+  transform-origin: left;
+  transform: scaleX(1);
+} */
+
 header img {
   width: 40px;
 }
@@ -173,7 +196,6 @@ button {
 }
 
 /* -------- Side Bar-------- */
-
 .bg-search,
 #side-header,
 #search-wrapper {
@@ -198,12 +220,6 @@ button {
   font-size: 15px;
 }
 
-/* -------- TV Page -------- */
-
-.frame-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-}
 /* -------- Search bar -------- */
 #search-wrapper {
   color: #fff;
@@ -233,7 +249,12 @@ button {
   color: #fff;
 }
 
-/* -------- Episode -------- */
+/* -------- TV Page -------- */
+.frame-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
 .episode-wrapper {
   margin-left: 0;
   margin-top: 0.5rem;
@@ -251,13 +272,13 @@ button {
     height: auto;
     margin: 0;
 } */
-.episode-container {
+.show-container {
   margin-right: auto;
   margin-left: auto;
   padding-left: 10px;
   padding-right: 10px;
 }
-.episode {
+.show {
   position: relative;
   border-bottom: solid 1px #2d2d2d;
   border-right: solid 1px #2d2d2d;
@@ -266,18 +287,18 @@ button {
   float: left;
 }
 
-.episode img {
+.show img {
   cursor: pointer;
   width: 100%;
 }
 
-.episode-container p {
+.show-container p {
   position: absolute;
   margin: auto;
   top: 10%;
   left: 10%;
   width: 80%;
-  font-size: 0.9rem;
+  font-size: 0.3rem;
   text-align: center;
   color: #fff;
   z-index: 1;
@@ -289,7 +310,7 @@ button {
   /* padding: 20px; */
 }
 
-.episode-container span {
+.show-container span {
   width: 80%;
   font-size: 0.7rem;
   text-align: center;
@@ -305,7 +326,8 @@ button {
   margin: 0;
 }
 
-.episode h3 {
+.title h3,
+.ep-title h3 {
   font-family: proxima nova semibold;
   color: #fff;
   text-shadow: 0 0 20px #000;
@@ -316,7 +338,8 @@ button {
   height: auto;
   overflow: visible;
 }
-.episode h4 {
+.title h4,
+.ep-title h4 {
   background-color: #ed1c24;
   color: #fff;
   font-size: 14px;
@@ -386,6 +409,89 @@ button {
   text-align: center;
 } */
 
+/* -------- Episode -------- */
+.episode-container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.episode {
+  position: relative;
+  border-bottom: solid 1px #2d2d2d;
+  border-right: solid 1px #2d2d2d;
+  padding: 0.5rem;
+}
+.ep-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.ep-container > div:nth-child(-n + 2) {
+  width: 50%;
+}
+.ep-container > div:nth-child(n + 3) {
+  width: 25%;
+}
+.episode img {
+  cursor: pointer;
+  width: 100%;
+}
+
+.episode-container span {
+  width: 80%;
+  font-size: 0.7rem;
+  text-align: center;
+  color: #ffffffa7;
+  z-index: 1;
+}
+
+.ep-title {
+  position: absolute;
+  bottom: 110px;
+  left: 12px;
+  height: auto;
+  margin: 0;
+}
+.summary-container {
+  margin: -4px;
+  color: #fff;
+  background-color: #1d1d1d;
+  height: 100px;
+  overflow-y: scroll;
+}
+.summary {
+  overflow-wrap: break-word;
+  padding: 0.4rem;
+}
+
+.summary-container::-webkit-scrollbar {
+  width: 10px;
+  background-color: #1d1d1d;
+}
+
+.summary-container::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #000000;
+}
+
+.summary p {
+  color: #fff;
+}
+.ep-container > div:nth-child(n + 3) .summary-container {
+  height: 40px;
+}
+
+.ep-container > div:nth-child(n + 3) .ep-title {
+  bottom: 45px;
+}
+
+.ep-container > div:nth-child(-n + 2) p {
+  font-size: 0.9rem;
+}
+.ep-container > div:nth-child(n + 3) p {
+  font-size: 0.7rem;
+}
+
 /* -------- Footer -------- */
 
 footer {
@@ -400,8 +506,40 @@ footer a {
   padding: 30px;
 }
 
+@media screen and (max-width: 1150px) {
+  .episode {
+    width: 25%;
+  }
+}
+
 @media screen and (max-width: 640px) {
   .nav {
     display: none;
+  }
+  .filter-table {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  #side-header {
+    display: flex;
+    align-items: center;
+  }
+  .frame-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .episode-wrapper {
+    margin-top: 40%;
+  }
+  .episode {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .episode {
+    width: 100%;
   }
 }

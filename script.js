@@ -21,7 +21,7 @@ async function setup() {
 
 // Level 100
 const sideHeader = document.getElementById("side-header");
-const showsContainer = document.getElementById("episodes-container");
+const showsContainer = document.querySelector(".tv-container");
 
 const sideTitle = document.createElement("h1");
 const sideCounter = document.createElement("p");
@@ -43,16 +43,19 @@ function makePageForShows(showList) {
   const episodeMarkUp = showList.map(renderShowContainer).join("");
 
   showsContainer.innerHTML = episodeMarkUp;
+
+  showsContainer.classList.remove("ep-container");
+  showsContainer.classList.add("tv-container");
 }
 // Render Show Div
 function renderShowContainer(show) {
   const showYear = show.premiered.slice(0, 4);
   const showElement = `
-    <div class="episode">
-       <img class="ep-art" src="${show.image ? show.image.medium : ""}" alt="${
+    <div class="show" id="${show.id}">
+       <img id="show-art" src="${show.image ? show.image.medium : ""}" alt="${
     show.name
   }">
-       <div class="episode-container">
+       <div class="show-container">
 
         <div class="title">
           <h4>${show.runtime} people watching</h4>
@@ -80,6 +83,8 @@ function renderShowContainer(show) {
 // Level 200
 const searchInput = document.getElementById("search-input");
 searchInput.addEventListener("input", (e) => {
+  showsContainer.classList.remove("ep-container");
+  showsContainer.classList.add("tv-container");
   const searchTerm = e.target.value.toLowerCase();
   let searchResults = allShows.filter((show) => {
     return (
@@ -109,6 +114,8 @@ function createOption(show) {
 
 // Display selected show by select option
 selectInput.addEventListener("change", function () {
+  showsContainer.classList.remove("ep-container");
+  showsContainer.classList.add("tv-container");
   const selectedOption = this.value;
 
   if (selectedOption === "all") {
@@ -153,5 +160,56 @@ filterTvrage.addEventListener("click", () => {
 });
 
 // open show episodes in new tab
+showsContainer.addEventListener("click", async (event) => {
+  showsContainer.classList.remove("tv-container");
+  showsContainer.classList.add("ep-container");
+  const showId = event.target.parentElement.id;
+  if (!showId) return;
+
+  try {
+    const response = await fetch(
+      `https://api.tvmaze.com/shows/${showId}/episodes`
+    );
+    const episodes = await response.json();
+    showEpisodesInSameWindow(episodes);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+function showEpisodesInSameWindow(episodes) {
+  const episodeMarkUp = episodes.map(renderEpisode).join("");
+
+  showsContainer.innerHTML = `
+      ${episodeMarkUp}
+
+  `;
+}
+
+function renderEpisode(episode) {
+  const episodeCode = `S${("0" + episode.season).slice(-2)}E${(
+    "0" + episode.number
+  ).slice(-2)}`;
+  const episodeElement = `
+    <div class="episode">
+      <img class="ep-art" src="${episode.image.original}" alt="${episode.name}">
+      <div class="episode-container">
+       
+       <div class="ep-title">
+          <h4>${episodeCode}</h4>
+          <h3>${episode.name} <span>Air: ${episode.airdate}</span></h3>
+          
+        </div>
+        
+      </div>
+      <div class="summary-container">
+        <div class="summary">
+        ${episode.summary}
+        </div>
+      </div>
+    </div>
+  `;
+  return episodeElement;
+}
 
 window.onload = setup;

@@ -507,12 +507,12 @@ footer a {
 }
 
 @media screen and (max-width: 1150px) {
-  .episode {
+  .show {
     width: 25%;
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 750px) {
   .nav {
     display: none;
   }
@@ -530,16 +530,25 @@ footer a {
     flex-direction: column;
     flex-wrap: wrap;
   }
-  .episode-wrapper {
+  .episode-wrapper,
+  .show-wrapper {
     margin-top: 40%;
   }
-  .episode {
+
+  .show {
+    width: 50%;
+  }
+
+  .ep-container > div:nth-child(n + 3) {
     width: 50%;
   }
 }
 
 @media screen and (max-width: 420px) {
-  .episode {
+  .ep-container > div:nth-child(-n + 2) {
+    width: 100%;
+  }
+  .show {
     width: 100%;
   }
 }

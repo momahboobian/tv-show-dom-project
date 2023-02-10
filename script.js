@@ -13,7 +13,10 @@ async function setup() {
     const response = await fetch("https://api.tvmaze.com/shows");
     allShows = await response.json();
     makePageForShows(allShows);
-    allShows.forEach((show) => {
+    const sortedShows = allShows.sort((a, b) => {
+      return a.name.localeCompare(b.name);
+    });
+    sortedShows.forEach((show) => {
       selectInput.add(createOption(show));
     });
   } catch (error) {}
@@ -85,6 +88,9 @@ const searchInput = document.getElementById("search-input");
 searchInput.addEventListener("input", (e) => {
   showsContainer.classList.remove("ep-container");
   showsContainer.classList.add("tv-container");
+  // Reset the shows container to all
+  selectInput.value = "all";
+
   const searchTerm = e.target.value.toLowerCase();
   let searchResults = allShows.filter((show) => {
     return (
@@ -108,7 +114,9 @@ function createOption(show) {
   const showYear = show.premiered.slice(0, 4);
 
   option.value = show.id;
+  // option.text = `${show.name.sort((a, b) => a - b)} - ${showYear}`;
   option.text = `${show.name} - ${showYear}`;
+
   return option;
 }
 
@@ -129,7 +137,6 @@ selectInput.addEventListener("change", function () {
 });
 
 // side-filter
-
 const filterTrending = document.getElementById("trending");
 const filterPopular = document.getElementById("popular");
 const filterRuntime = document.getElementById("runtime");
